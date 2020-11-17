@@ -2,7 +2,13 @@
 
 import numpy as np
 
-a = np.random.random(5)
-b = np.matrix(np.random.random((5, 5)))
 
-print(np.dot(a, b))
+def scalar_product(a, b):
+    return np.dot(a, b)
+
+
+if __name__ == '__main__':
+    a = np.random.random(5)
+    b = np.random.random((5, 5))
+
+    print(scalar_product(a, b))

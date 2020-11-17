@@ -36,7 +36,7 @@ class EquationSolverAbstract(metaclass=abc.ABCMeta):
         params = list()
 
         for equation in equations_list:
-            match = re.search(r'(?:([^x]*)\s*x)?\s*(?:([^y]*)\s*y)\s*(?:([^z]*)\s*z)\s*=(.*)', equation)
+            match = re.search(r'(?:([^x]*)\s*x)?\s*(?:([^y]*)\s*y)?\s*(?:([^z]*)\s*z)?\s*=(.*)', equation)
 
             a = EquationSolverAbstract.__get_param_from_regex_match_group(match.group(1))
             b = EquationSolverAbstract.__get_param_from_regex_match_group(match.group(2))

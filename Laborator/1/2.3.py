@@ -2,12 +2,26 @@
 
 import numpy as np
 
-a = np.matrix(np.random.random((5, 5)))
-print(a.T)
 
-a_det = np.linalg.det(a)
-print(a_det)
-if a_det != 0:
-	a_adjoint = a.H
-	a_inverse = 1 / a_det * a_adjoint
-	print(a_inverse)
+def get_transpose(a):
+	return a.T
+
+
+def compute_determinant(a):
+	return np.linalg.det(a)
+
+
+def get_inverse(a):
+	return np.linalg.inv(a)
+
+
+if __name__ == '__main__':
+	a = np.random.random((5, 5))
+
+	print(get_transpose(a))
+
+	determinant = compute_determinant(a)
+	print(determinant)
+
+	if determinant != 0:
+		print(get_inverse(a))
