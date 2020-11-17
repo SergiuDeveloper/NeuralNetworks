@@ -9,10 +9,9 @@ class NeuralNetwork:
         self.__w_output = np.array((0, 0))
 
     def fit(self, X_train, X_test, max_epochs, learning_rate):
-        self.__w_hidden = np.random.uniform(low=-1, high=1, size=(784, 100))
-        self.__w_output = np.random.uniform(low=-1, high=1, size=(100, 10))
+        self.__w_hidden = np.random.uniform(low=-0.5, high=0.5, size=(784, 100))
+        self.__w_output = np.random.uniform(low=-0.5, high=0.5, size=(100, 10))
 
-        momentum = 101 / 100
         for epoch in range(1, max_epochs + 1):
             l1_in, l1_out, l2_in, l2_out = self.__forward_prop(X_train)
 
@@ -25,10 +24,9 @@ class NeuralNetwork:
             self.__w_output -= l2_delta * learning_rate
             self.__w_hidden -= l1_delta * learning_rate
 
-            learning_rate *= momentum
-
             print('Epoch {0}'.format(epoch))
             print('Accuracy = {0}%'.format(self.compute_accuracy(X_train, X_test) * 100))
+            print('Cross Entropy = {0}'.format(self.__cross_entropy(X_train, X_test)))
             print()
 
         return self
@@ -42,6 +40,10 @@ class NeuralNetwork:
             if self.predict(X_test[i]) == np.argmax(y_test[i]):
                 correct_predictions += 1
         return correct_predictions / len(X_test)
+
+    def __cross_entropy(self, X_train, X_test):
+        forward_prop_result = self.__forward_prop(X_train)[3]
+        return -1 / X_train.shape[0] * np.sum(X_test * np.log(forward_prop_result) + (1 - X_test) * np.log(1 - forward_prop_result))
 
     def __forward_prop(self, X_train):
         l1_in = np.dot(X_train, self.__w_hidden)
