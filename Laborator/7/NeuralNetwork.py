@@ -8,7 +8,7 @@ class NeuralNetwork:
         self.__w_hidden = np.array((0, 0))
         self.__w_output = np.array((0, 0))
 
-    def fit(self, X_train, X_test, max_epochs, learning_rate):
+    def fit(self, X_train, X_test, X_valid_data, X_valid_test, X_test_data, X_test_test, max_epochs, learning_rate):
         self.__w_hidden = np.random.uniform(low=-1, high=1, size=(784, 100))
         self.__w_output = np.random.uniform(low=-1, high=1, size=(100, 10))
 
@@ -25,7 +25,9 @@ class NeuralNetwork:
             self.__w_hidden -= l1_delta * learning_rate
 
             print('Epoch {0}'.format(epoch))
-            print('Accuracy = {0}%'.format(self.compute_accuracy(X_train, X_test) * 100))
+            print('Training accuracy = {0}%'.format(self.compute_accuracy(X_train, X_test) * 100))
+            print('Validation accuracy = {0}%'.format(self.compute_accuracy(X_valid_data, X_valid_test) * 100))
+            print('Test accuracy = {0}%'.format(self.compute_accuracy(X_test_data, X_test_test) * 100))
             print('Cross Entropy = {0}'.format(self.__cross_entropy(X_train, X_test)))
             print()
 
